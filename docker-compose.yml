@@ -1,0 +1,45 @@
+version: '3.9'
+services:
+  db:
+    image: postgres:13
+    container_name: postgres
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: desafio
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend
+    environment:
+      DB_HOST: postgres
+      DB_USER: root
+      DB_PASSWORD: 1234
+      DB_NAME: desafio
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    tty: true
+    volumes:
+      - backend-data:/var/lib/backend/data
+
+  frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+volumes:
+  postgres-data:
+  backend-data:
