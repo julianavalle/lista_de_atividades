@@ -4,7 +4,7 @@ class ActivityController {
   async create(req, res) {
     try {
       const activity = await activityRepository.create(req.body);
-      res.status(201).json(activity);
+      res.status(201).json({activity, message: 'Atividade cadastrada com sucesso!' });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
@@ -13,7 +13,7 @@ class ActivityController {
   async update(req, res) {
     try {
       await activityRepository.update(req.params.id, req.body);
-      res.status(200).json({ message: 'Activity updated successfully' });
+      res.status(200).json({ message: 'Atividade atualizada com sucesso!' });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
@@ -22,7 +22,7 @@ class ActivityController {
   async delete(req, res) {
     try {
       await activityRepository.delete(req.params.id);
-      res.status(200).json({ message: 'Activity deleted successfully' });
+      res.status(200).json({ message: 'Atividade deletada com sucesso!' });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
@@ -43,7 +43,7 @@ class ActivityController {
       if (activity) {
         res.status(200).json(activity);
       } else {
-        res.status(404).json({ message: 'Activity not found' });
+        res.status(404).json({ message: 'Atividade não encontrada :(' });
       }
     } catch (error) {
       res.status(500).json({ error: error.message });

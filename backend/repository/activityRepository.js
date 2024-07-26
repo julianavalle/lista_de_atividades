@@ -2,10 +2,16 @@ const { Activity } = require('../models');
 
 class ActivityRepository {
   async create(activityData) {
+    if (activityData.completed) {
+      activityData.completedAt = new Date();
+    }
     return await Activity.create(activityData);
   }
 
   async update(id, activityData) {
+    if (activityData.completed) {
+      activityData.completedAt = new Date();
+    }
     return await Activity.update(activityData, { where: { id } });
   }
 
