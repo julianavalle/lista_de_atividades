@@ -4,7 +4,7 @@ class ActivityController {
   async create(req, res) {
     try {
       const activity = await activityRepository.create(req.body);
-      res.status(201).json({activity, message: 'Atividade cadastrada com sucesso!' });
+      res.status(201).json({ activity, message: 'Atividade cadastrada com sucesso!' });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }

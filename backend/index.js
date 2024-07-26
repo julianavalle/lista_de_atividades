@@ -10,6 +10,9 @@ app.use(bodyParser.json());
 
 app.use('/api', activityRoutes);
 
+const setupSwagger = require('./swagger');
+setupSwagger(app);
+
 app.listen(port, async () => {
   console.log(`Server is running on http://localhost:${port}`);
 
