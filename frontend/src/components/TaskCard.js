@@ -41,13 +41,18 @@ const TaskCard = ({ task, onUpdate, onDelete }) => {
               value={newDescription}
               onChange={(e) => setNewDescription(e.target.value)}
             />
-            <button onClick={handleSave}>Save</button>
-            <button onClick={handleCancel}>Cancel</button>
+            <button onClick={handleSave}>Salvar</button>
+            <button onClick={handleCancel}>Cancelar</button>
           </div>
         ) : (
           <div className="task-description">
             {task.description}
-            {task.completed && <div className="task-completed-at">{new Date(task.completedAt).toLocaleDateString()}</div>}
+            {task.completed && (
+              <div className="task-completed-at">
+                <span>Data de conclusão: </span>
+                {new Date(task.completedAt).toLocaleDateString()}
+              </div>
+            )}
           </div>
         )}
       </div>

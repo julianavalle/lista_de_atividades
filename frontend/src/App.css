@@ -51,6 +51,7 @@
   margin-bottom: 10px;
   display: flex;
   align-items: center;
+  flex-wrap: nowrap;
 }
 
 
@@ -65,12 +66,24 @@
 .task-content {
   flex: 1;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
 }
 
 .task-description {
-  flex: 1;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.task-completed-at {
+  margin-top: 5px; 
+  font-size: 10px;
+  color: #666; 
+}
+
+.task-completed-at span {
+  font-weight: bold;
 }
 
 .task-editing input {
@@ -78,6 +91,7 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-right: 10px;
+  margin-bottom: 5px;
 }
 
 .task-editing button {
@@ -87,6 +101,7 @@
   background-color: #007bff;
   color: white;
   cursor: pointer;
+  margin-right: 3px;
 }
 
 .task-editing button:hover {
@@ -108,7 +123,7 @@
 }
 
 .task-actions button:first-of-type {
-  margin-bottom: 5px; 
+  margin-bottom: 5px;
 }
 
 .task-actions button:hover {

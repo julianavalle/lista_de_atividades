@@ -10,8 +10,9 @@ const TaskBoard = () => {
     const fetchTasks = async () => {
       try {
         const response = await api.get('/activities');
-        setTasks(response.data);
-        console.log('Fetched tasks:', response.data);
+        const sortedTasks = response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        setTasks(sortedTasks);
+        console.log('Fetched tasks:', sortedTasks);
       } catch (error) {
         console.error('Failed to fetch tasks:', error);
       }
@@ -24,7 +25,7 @@ const TaskBoard = () => {
     try {
       const response = await api.post('/activities', { description });
       const newTask = response.data.activity;
-      setTasks(prevTasks => [...prevTasks, newTask]);
+      setTasks(prevTasks => [newTask, ...prevTasks, ]);
     } catch (error) {
       console.error('Failed to add task:', error);
     }
