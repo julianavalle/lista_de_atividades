@@ -45,7 +45,11 @@ docker-compose up
 5. Acesse a aplicação no link:
 ```http://localhost:3000```
 
+![Página da Aplicação de Lista de Atividades](assets/pagina_inicial_front.png)
+
 6. Para visualizar a documentação do backend acesse: ```http://localhost:8000/api-docs```
+
+![Página do Swagger](assets/swagger.png)
 
 ## 4. Uso
 1. Adicionar Atividades: Na coluna <b>PENDENTES</b>, digite uma descrição na caixa de texto e clique no botão <b>Adicionar</b> para criar uma nova atividade.
