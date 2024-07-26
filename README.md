@@ -16,8 +16,8 @@ Essa é uma aplicação para gerenciamento de atividades que é possível adicio
 
 ## 3. Instalação
 ### 3.1 Requisitos
-- Docker
-- Docker Compose
+- Docker versão 27.0.3 ou mais
+- cocker-compose versão 2.28.1 ou mais
 
 ### 3.2 Passos para Instalação
 1. Clone o repositório.
@@ -45,7 +45,7 @@ docker-compose up
 5. Acesse a aplicação no link:
 ```http://localhost:3000```
 
-6. Para visualizar a documentação do backend acesse: ```http://localhost:8000```
+6. Para visualizar a documentação do backend acesse: ```http://localhost:8000/api-docs```
 
 ## 4. Uso
 1. Adicionar Atividades: Na coluna <b>PENDENTES</b>, digite uma descrição na caixa de texto e clique no botão <b>Adicionar</b> para criar uma nova atividade.
