@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Column from './Column';
 import api from '../services/api';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 const TaskBoard = () => {
   const [tasks, setTasks] = useState([]);
@@ -20,7 +20,7 @@ const TaskBoard = () => {
     fetchTasks();
   }, []);
 
-  const handleAddTask = async (status, description) => {
+  const handleAddTask = async (description) => {
     try {
       const response = await api.post('/activities', { description });
       const newTask = response.data.activity;
@@ -49,7 +49,7 @@ const TaskBoard = () => {
   };
 
   const onDragEnd = (result) => {
-    const { destination, source, draggableId } = result;
+    const { destination, source } = result;
 
     if (!destination) {
       return;

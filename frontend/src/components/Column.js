@@ -7,7 +7,9 @@ const Column = ({ status, tasks, onAddTask, onUpdateTask, onDeleteTask }) => {
 
   return (
     <div className="column">
-      <h2>{status === 'not-completed' ? 'A Fazer' : 'Concluído'}</h2>
+      <h2 className={`column-title ${status === 'not-completed' ? 'pending' : 'completed'}`}>
+        {status === 'not-completed' ? 'PENDENTES' : 'CONCLUÍDAS'}
+      </h2>
       <AddTaskCard onAdd={description => onAddTask(description)} />
       <TaskList
         tasks={tasks}
