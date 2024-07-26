@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Column from './Column';
 import api from '../services/api';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 const TaskBoard = () => {
   const [tasks, setTasks] = useState([]);
@@ -47,33 +48,66 @@ const TaskBoard = () => {
     }
   };
 
+  const onDragEnd = (result) => {
+    const { destination, source, draggableId } = result;
+
+    if (!destination) {
+      return;
+    }
+
+    if (destination.droppableId === source.droppableId && destination.index === source.index) {
+      return;
+    }
+
+    const start = tasks.filter(task => task.completed === (source.droppableId === "completed"));
+    const finish = tasks.filter(task => task.completed === (destination.droppableId === "completed"));
+
+    if (start === finish) {
+      const newTaskList = Array.from(start);
+      const [movedTask] = newTaskList.splice(source.index, 1);
+      newTaskList.splice(destination.index, 0, movedTask);
+
+      setTasks(tasks.map(task =>
+        newTaskList.find(t => t.id === task.id) ? newTaskList.find(t => t.id === task.id) : task
+      ));
+    } else {
+      const startTaskList = Array.from(start);
+      const [movedTask] = startTaskList.splice(source.index, 1);
+      const finishTaskList = Array.from(finish);
+      finishTaskList.splice(destination.index, 0, movedTask);
+
+      const updatedTask = { ...movedTask, completed: !movedTask.completed };
+      handleUpdateTask(movedTask.id, updatedTask);
+
+      setTasks(tasks.map(task =>
+        startTaskList.find(t => t.id === task.id) ? startTaskList.find(t => t.id === task.id) :
+        finishTaskList.find(t => t.id === task.id) ? finishTaskList.find(t => t.id === task.id) :
+        task
+      ));
+    }
+  };
+
   return (
-    <div className="task-board">
-      <Column
-        key="Pendente"
-        status="Pendente"
-        tasks={tasks.filter(task => !task.completed)}
-        onAddTask={handleAddTask}
-        onUpdateTask={handleUpdateTask}
-        onDeleteTask={handleDeleteTask}
-      />
-      <Column
-        key="Em andamento"
-        status="Em andamento"
-        tasks={[]} // Sem tarefas em andamento por enquanto
-        onAddTask={handleAddTask}
-        onUpdateTask={handleUpdateTask}
-        onDeleteTask={handleDeleteTask}
-      />
-      <Column
-        key="Concluído"
-        status="Concluído"
-        tasks={tasks.filter(task => task.completed)}
-        onAddTask={handleAddTask}
-        onUpdateTask={handleUpdateTask}
-        onDeleteTask={handleDeleteTask}
-      />
-    </div>
+    <DragDropContext onDragEnd={onDragEnd}>
+      <div className="task-board">
+        {['not-completed', 'completed'].map(status => (
+          <Droppable droppableId={status} key={status}>
+            {(provided) => (
+              <div ref={provided.innerRef} {...provided.droppableProps}>
+                <Column
+                  status={status}
+                  tasks={tasks.filter(task => task.completed === (status === 'completed'))}
+                  onAddTask={handleAddTask}
+                  onUpdateTask={handleUpdateTask}
+                  onDeleteTask={handleDeleteTask}
+                />
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        ))}
+      </div>
+    </DragDropContext>
   );
 };
 
