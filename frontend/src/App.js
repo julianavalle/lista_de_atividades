@@ -7,11 +7,16 @@ import 'react-toastify/dist/ReactToastify.css';
 const App = () => {
   return (
     <div className="App">
-      <h1 className="title">LISTA DE ATIVIDADES</h1>
+      <div className="header">
+        <h1 className="title">LISTA DE ATIVIDADES</h1>
+        <div className="info-container" title="Clique para adicionar atividades. Arraste as atividades para mover entre pendentes ou concluídas. Clique para marcar como concluída, editar ou excluir.">
+          <span className="info-icon">i</span>
+        </div>
+      </div>
       <TaskBoard />
       <ToastContainer
-        position="bottom-right" // Posição das notificações
-        autoClose={3000} // Tempo em milissegundos antes de desaparecer
+        position="bottom-right"
+        autoClose={3000}
         hideProgressBar
         newestOnTop
         closeOnClick
