@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Column from './Column';
 import api from '../services/api';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { toast } from 'react-toastify';
 
 const TaskBoard = () => {
   const [tasks, setTasks] = useState([]);
@@ -12,9 +13,9 @@ const TaskBoard = () => {
         const response = await api.get('/activities');
         const sortedTasks = response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         setTasks(sortedTasks);
-        console.log('Fetched tasks:', sortedTasks);
+        console.log('Fetched activities:', sortedTasks);
       } catch (error) {
-        console.error('Failed to fetch tasks:', error);
+        console.error('Failed to fetch activities:', error);
       }
     };
 
@@ -26,8 +27,9 @@ const TaskBoard = () => {
       const response = await api.post('/activities', { description });
       const newTask = response.data.activity;
       setTasks(prevTasks => [newTask, ...prevTasks, ]);
+      toast.success('Atividade adicionada com sucesso!');
     } catch (error) {
-      console.error('Failed to add task:', error);
+      toast.error('Falha ao adicionar atividade.');
     }
   };
 
@@ -35,8 +37,10 @@ const TaskBoard = () => {
     try {
       await api.put(`/activities/${id}`, updatedTask);
       setTasks(prevTasks => prevTasks.map(task => task.id === id ? updatedTask : task));
+      toast.success('Atividade atualizada com sucesso!');
     } catch (error) {
-      console.error('Failed to update task:', error);
+      console.error('Failed to update activity:', error);
+      toast.error('Falha ao atualizar atividades.');
     }
   };
 
@@ -44,8 +48,10 @@ const TaskBoard = () => {
     try {
       await api.delete(`/activities/${id}`);
       setTasks(prevTasks => prevTasks.filter(task => task.id !== id));
+      toast.success('Atividade excluída com sucesso!');
     } catch (error) {
-      console.error('Failed to delete task:', error);
+      console.error('Failed to delete activity:', error);
+      toast.error('Falha ao excluir atividade.');
     }
   };
 
