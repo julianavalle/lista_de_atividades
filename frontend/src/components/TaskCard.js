@@ -33,9 +33,9 @@ const TaskCard = ({ task, onUpdate, onDelete }) => {
       <div className="task-status" onClick={handleCheck}>
         {task.completed ? '✓' : '○'}
       </div>
-      <div className="task-description">
+      <div className="task-content">
         {isEditing ? (
-          <>
+          <div className="task-editing">
             <input
               type="text"
               value={newDescription}
@@ -43,16 +43,18 @@ const TaskCard = ({ task, onUpdate, onDelete }) => {
             />
             <button onClick={handleSave}>Save</button>
             <button onClick={handleCancel}>Cancel</button>
-          </>
+          </div>
         ) : (
-          <>
+          <div className="task-description">
             {task.description}
             {task.completed && <div className="task-completed-at">{new Date(task.completedAt).toLocaleDateString()}</div>}
-            <button onClick={handleEdit}>✎</button>
-          </>
+          </div>
         )}
       </div>
-      <button onClick={handleDelete}>🗑</button>
+      <div className="task-actions">
+        <button onClick={handleEdit}>✎</button>
+        <button onClick={handleDelete}>🗑</button>
+      </div>
     </div>
   );
 };

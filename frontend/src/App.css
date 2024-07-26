@@ -50,37 +50,68 @@
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   margin-bottom: 10px;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
 }
 
-.task-card .task-status {
+
+.task-status {
+  flex: 0 0 auto;
+  margin-right: 10px;
   cursor: pointer;
+  font-size: 20px;
 }
 
-.task-card .task-description {
-  flex-grow: 1;
-  margin-left: 10px;
+
+.task-content {
+  flex: 1;
   display: flex;
-  flex-direction: column;
-  gap: 5px;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.task-card input {
+.task-description {
+  flex: 1;
+}
+
+.task-editing input {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-right: 10px;
 }
 
-.task-card button {
+.task-editing button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.task-editing button:hover {
+  background-color: #0056b3;
+}
+
+.task-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.task-actions button {
   background: none;
   border: none;
   cursor: pointer;
-  margin-left: 5px;
+  margin: 2px 0;
 }
 
-.task-card button:hover {
+.task-actions button:first-of-type {
+  margin-bottom: 5px; 
+}
+
+.task-actions button:hover {
   color: red;
 }
 
